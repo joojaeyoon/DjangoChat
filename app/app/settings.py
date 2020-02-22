@@ -32,10 +32,10 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
-    'allauth.socailaccount',
+    'allauth.socialaccount',
 
     'rest_auth',
-    'rest_auth.registration'
+    'rest_auth.registration',
 
     'corsheaders',
 
