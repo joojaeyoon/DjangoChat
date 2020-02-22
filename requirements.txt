@@ -1,0 +1,9 @@
+django>=2.2.0,<3.0
+djangorestframework
+psycopg2>=2.7,<3.0
+django-cors-headers
+django-rest-auth
+django-allauth
+Pillow
+channels
+channels_redis
