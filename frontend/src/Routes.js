@@ -8,7 +8,8 @@ import Chat from "./components/Chat";
 const BaseRouter = () => (
   <Switch>
     <Route exact path="/" component={Login} />
-    <Route path="/chat" component={Chat} />
+    <Route exact path="/chat" component={Chat} />
+    <Route path="/chat/:chatid" component={Chat} />
   </Switch>
 );
 

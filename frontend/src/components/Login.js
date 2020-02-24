@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import styled, { keyframes } from "styled-components";
 
 const LoginContainer = () => {
   const [loginForm, setLoginForm] = useState(true);
+  const history = useHistory();
   function onSubmit(e) {
     e.preventDefault();
 
@@ -19,7 +21,7 @@ const LoginContainer = () => {
           const token = res.data.key;
           localStorage.setItem("token", token);
           localStorage.setItem("username", username.value);
-          // Success pro
+          history.push("/chat");
         })
         .catch(err => {
           console.log(err);
@@ -37,7 +39,7 @@ const LoginContainer = () => {
           const token = res.data.key;
           localStorage.setItem("token", token);
           localStorage.setItem("username", username.value);
-          // Success pro
+          history.push("/chat");
         })
         .catch(err => {
           console.log(err);
