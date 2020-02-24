@@ -24,17 +24,19 @@ class WebSocketService {
     };
 
     this.socketRef.onmessage = e => {
-      console.log(e);
+      this.socketNewMessage(e.data);
     };
 
     this.socketRef.onclose = () => {
       console.log("websocket closed");
+      this.connect(chatId);
     };
   }
 
   socketNewMessage(data) {
-    const parsedData = JSON.parse(data);
+    const parsedData = JSON.parse(data).message;
     const command = parsedData.command;
+
     if (Object.keys(this.callbacks).length === 0) {
       return;
     }
@@ -48,7 +50,7 @@ class WebSocketService {
 
   addCallbacks(messagesCallback, newMessageCallback) {
     this.callbacks["messages"] = messagesCallback;
-    this.callbacks["new_messages"] = newMessageCallback;
+    this.callbacks["new_message"] = newMessageCallback;
   }
 
   sendMessage(data) {

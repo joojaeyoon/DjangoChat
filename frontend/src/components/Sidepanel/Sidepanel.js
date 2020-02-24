@@ -48,7 +48,7 @@ const Sidepanel = props => {
 
 const SidePanelDiv = styled.div`
   background-color: rgb(44, 62, 80);
-  width: 30%;
+  width: 20%;
   color: white;
 
   > .profile {

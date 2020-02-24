@@ -14,19 +14,18 @@ class Chat extends React.Component {
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token")
     };
-
-    this.waitForSocketConnection(() => {
-      WebSocketInstance.addCallbacks(
-        this.setMessages.bind(this),
-        this.addMessage.bind(this)
-      );
-      WebSocketInstance.fetchMessages(
-        this.props.username,
-        this.props.match.params.chatID
-      );
-    });
-
     if (props.match.params.chatid !== undefined) {
+      this.waitForSocketConnection(() => {
+        WebSocketInstance.addCallbacks(
+          this.setMessages.bind(this),
+          this.addMessage.bind(this)
+        );
+        WebSocketInstance.fetchMessages(
+          this.state.username,
+          this.props.match.params.chatid
+        );
+      });
+
       WebSocketInstance.connect(props.match.params.chatid);
     }
   }
@@ -53,15 +52,19 @@ class Chat extends React.Component {
     this.setState({ message: messages.reverse() });
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-
-    console.log(e.target.text.value);
-    e.target.text.value = "";
-  };
-
   ClickFriend = name => {
     this.props.history.push(`/chat/${name}`);
+  };
+
+  SendMessage = e => {
+    e.preventDefault();
+    if (e.target.text.value === "") return;
+    WebSocketInstance.newChatMessage({
+      from: this.state.username,
+      content: e.target.text.value
+    });
+
+    e.target.text.value = "";
   };
 
   render() {
@@ -71,7 +74,11 @@ class Chat extends React.Component {
           username={this.stateusername}
           onClickFriend={this.ClickFriend}
         />
-        <ChatRoom handleSubmit={this.handleSubmit} />
+        <ChatRoom
+          username={this.state.username}
+          handleSubmit={this.SendMessage}
+          messages={this.state.messages}
+        />
       </ChatDiv>
     );
   }
