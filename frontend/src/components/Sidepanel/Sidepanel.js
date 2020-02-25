@@ -51,41 +51,7 @@ const Sidepanel = props => {
           </div>
         </div>
         <div className="card-body contacts_body">
-          <ul className="contacts">
-            {FriendList}
-            <li className="active">
-              <div className="d-flex bd-highlight">
-                <div className="img_cont">
-                  <img
-                    src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                    className="rounded-circle user_img"
-                    alt="avatar"
-                  />
-                  <span className="online_icon"></span>
-                </div>
-                <div className="user_info">
-                  <span name="name">Khalid</span>
-                  <p>Kalid is online</p>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="d-flex bd-highlight">
-                <div className="img_cont">
-                  <img
-                    src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg"
-                    className="rounded-circle user_img"
-                    alt="avatar"
-                  />
-                  <span className="online_icon offline"></span>
-                </div>
-                <div className="user_info">
-                  <span>Taherah Big</span>
-                  <p>Taherah left 7 mins ago</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <ul className="contacts">{FriendList}</ul>
         </div>
         <div className="card-footer"></div>
       </div>
@@ -98,6 +64,10 @@ const Li = styled.li`
 
   > * {
     pointer-events: none;
+  }
+
+  > div .user_info {
+    text-align: left;
   }
 `;
 

@@ -13,8 +13,12 @@ class ProfileListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, ]
 
     def get_queryset(self):
+        queryset = Profile.objects.all()
 
-        username = self.request.query_params.get("username")
+        username = self.request.query_params.get("username", None)
+        if username is None:
+            return queryset
+
         profile = Profile.objects.filter(user__username=username)
 
         return profile

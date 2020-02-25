@@ -18,19 +18,16 @@ class Chat extends React.Component {
       token: localStorage.getItem("token"),
       chatId: props.match.params.chatid
     };
-    if (props.match.params.chatid !== undefined) {
+    if (this.state.chatId !== undefined) {
       this.waitForSocketConnection(() => {
         WebSocketInstance.addCallbacks(
           this.setMessages.bind(this),
           this.addMessage.bind(this)
         );
-        WebSocketInstance.fetchMessages(
-          this.state.username,
-          this.props.match.params.chatid
-        );
+        WebSocketInstance.fetchMessages(this.state.username, this.state.chatId);
       });
 
-      WebSocketInstance.connect(props.match.params.chatid);
+      WebSocketInstance.connect(this.state.chatId);
     }
 
     Axios.defaults.headers = {
@@ -43,6 +40,28 @@ class Chat extends React.Component {
     ).then(res => {
       this.setState({ friends: res.data[0].friends });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.chatId !== this.state.chatId) {
+      this.setState({
+        messages: [],
+        username: localStorage.getItem("username"),
+        token: localStorage.getItem("token")
+      });
+
+      WebSocketInstance.socketRef.close();
+
+      this.waitForSocketConnection(() => {
+        WebSocketInstance.addCallbacks(
+          this.setMessages.bind(this),
+          this.addMessage.bind(this)
+        );
+        WebSocketInstance.fetchMessages(this.state.username, this.state.chatId);
+      });
+
+      WebSocketInstance.connect(this.state.chatid);
+    }
   }
 
   waitForSocketConnection(callback) {
@@ -68,9 +87,9 @@ class Chat extends React.Component {
   }
 
   ClickFriend = order => {
-    console.log(order);
-    this.setState({ selectedFriend: order });
-    //this.props.history.push(`/chat/${e}`);
+    if (order === this.state.chatId) return;
+    this.props.history.push(`/chat/${order}`);
+    this.setState({ selectedFriend: order, chatId: order });
   };
 
   SendMessage = e => {
@@ -99,6 +118,7 @@ class Chat extends React.Component {
             username={this.state.username}
             handleSubmit={this.SendMessage}
             messages={this.state.messages}
+            contact={this.state.friends[this.state.selectedFriend]}
           />
         </div>
       </div>

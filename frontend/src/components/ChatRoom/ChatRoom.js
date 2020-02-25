@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import Message from "./Message";
 
 const ChatRoom = props => {
-  const { handleSubmit, messages, username } = props;
+  const { handleSubmit, messages, username, contact } = props;
   const bodyRef = useRef(null);
 
   const Messages = messages.map(message => {
@@ -36,7 +36,7 @@ const ChatRoom = props => {
               <span className="online_icon"></span>
             </div>
             <div className="user_info">
-              <span>Chat with Khalid</span>
+              <span>Chat with {contact}</span>
               <p>1767 Messages</p>
             </div>
             <div className="video_cam">

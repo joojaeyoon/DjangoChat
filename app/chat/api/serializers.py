@@ -5,6 +5,7 @@ from chat.models import Profile, Chat
 
 class ProfileSerializer(serializers.ModelSerializer):
     friends = serializers.StringRelatedField(many=True)
+    user = serializers.StringRelatedField()
 
     class Meta:
         model = Profile
