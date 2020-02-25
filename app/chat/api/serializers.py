@@ -4,6 +4,7 @@ from chat.models import Profile, Chat
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    friends = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Profile
@@ -11,7 +12,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
+    participants = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Chat
-        fields = "__all__"
+        exclude = ("messages",)

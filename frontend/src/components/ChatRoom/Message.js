@@ -38,6 +38,7 @@ const Message = ({ state, message }) => {
         <img
           src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
           className="rounded-circle user_img_msg"
+          alt="avatar"
         />
       </div>
       <div className="msg_cotainer">

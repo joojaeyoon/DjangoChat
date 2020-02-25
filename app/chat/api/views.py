@@ -30,3 +30,12 @@ class ChatListCreateAPIView(generics.ListCreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        queryset = Chat.objects.all()
+        username = self.request.query_params.get("username", None)
+        if username is not None:
+            queryset = Chat.objects.filter(
+                participants__user__username=username)
+
+        return queryset

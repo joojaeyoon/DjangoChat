@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 import Message from "./Message";
 
 const ChatRoom = props => {
   const { handleSubmit, messages, username } = props;
-  console.log(messages);
+  const bodyRef = useRef(null);
 
   const Messages = messages.map(message => {
     return (
       <Message
+        key={message.id}
         state={message.author === username ? true : false}
         message={message}
       />
     );
+  });
+
+  useEffect(() => {
+    if (bodyRef.current !== null) {
+      bodyRef.current.scrollTo(0, bodyRef.current.scrollHeight);
+    }
   });
 
   return (
@@ -24,6 +31,7 @@ const ChatRoom = props => {
               <img
                 src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                 className="rounded-circle user_img"
+                alt="avatar"
               />
               <span className="online_icon"></span>
             </div>
@@ -60,12 +68,13 @@ const ChatRoom = props => {
             </ul>
           </div>
         </div>
-        <div className="card-body msg_card_body">
+        <div ref={bodyRef} className="card-body msg_card_body">
           <div className="d-flex justify-content-start mb-4">
             <div className="img_cont_msg">
               <img
                 src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                 className="rounded-circle user_img_msg"
+                alt="avatar"
               />
             </div>
             <div className="msg_cotainer">
