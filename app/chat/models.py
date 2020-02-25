@@ -19,10 +19,11 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.user.username
+        return self.content
 
 
 class Chat(models.Model):
+
     participants = models.ManyToManyField(Profile, related_name="chats")
     messages = models.ManyToManyField(Message, blank=True)
 
