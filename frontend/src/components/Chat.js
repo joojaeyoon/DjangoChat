@@ -16,7 +16,8 @@ class Chat extends React.Component {
       selectedFriend: 0,
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
-      chatId: props.match.params.chatid
+      chatId: props.match.params.chatid,
+      avatar: null
     };
     if (this.state.chatId !== undefined) {
       this.waitForSocketConnection(() => {
@@ -38,7 +39,11 @@ class Chat extends React.Component {
     Axios.get(
       `http://localhost:8000/api/profiles/?username=${this.state.username}`
     ).then(res => {
-      this.setState({ friends: res.data[0].friends });
+      console.log(res.data[0]);
+      this.setState({
+        friends: res.data[0].friends,
+        avatar: res.data[0].avatar
+      });
     });
   }
 

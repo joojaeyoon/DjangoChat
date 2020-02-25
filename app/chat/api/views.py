@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import ProfileSerializer, ChatSerializer
+from .serializers import ProfileSerializer, ChatSerializer, ProfileRetrieveSerializer
 from chat.models import Profile, Chat
 
 from .permissions import IsOwnerOrReadOnly
@@ -9,7 +9,7 @@ from .permissions import IsOwnerOrReadOnly
 
 class ProfileListAPIView(generics.ListAPIView):
     queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileRetrieveSerializer
     permission_classes = [IsAuthenticated, ]
 
     def get_queryset(self):
@@ -24,7 +24,7 @@ class ProfileListAPIView(generics.ListAPIView):
         return profile
 
 
-class ProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ProfileUpdateAPIView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly, ]

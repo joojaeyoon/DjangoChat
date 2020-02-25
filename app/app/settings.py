@@ -156,6 +156,10 @@ CORS_ALLOW_CREDENTIAL = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/media'
+STATIC_ROOT = '/static'
 
 SITE_ID = 1
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Axios from "axios";
 
 const Sidepanel = props => {
   const { username, onClickFriend, friends, selectedFriend } = props;
@@ -34,7 +35,28 @@ const Sidepanel = props => {
   return (
     <div className="col-md-4 col-xl-3 chat">
       <div className="card mb-sm-3 mb-md-0 contacts_card">
-        <div>{username}</div>
+        <ProfileDiv className="d-flex bd-highlight">
+          <div className="img_cont">
+            <label htmlFor="file-input">
+              <img
+                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                alt="avatar"
+                className="rounded-circle user_img"
+              />
+            </label>
+            <input
+              id="file-input"
+              type="file"
+              onChange={e => {
+                console.log(e.target.value);
+              }}
+            />
+            <span className="online_icon"></span>
+          </div>
+          <div className="user_info">
+            <span name="name">{username}</span>
+          </div>
+        </ProfileDiv>
         <div className="card-header">
           <div className="input-group">
             <input
@@ -68,6 +90,15 @@ const Li = styled.li`
 
   > div .user_info {
     text-align: left;
+  }
+`;
+
+const ProfileDiv = styled.div`
+  > div label {
+    cursor: pointer;
+  }
+  > div input[type="file"] {
+    display: none;
   }
 `;
 
