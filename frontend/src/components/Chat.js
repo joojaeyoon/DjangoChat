@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import Sidepanel from "./Sidepanel/Sidepanel";
 import ChatRoom from "./ChatRoom/ChatRoom";
@@ -52,8 +51,9 @@ class Chat extends React.Component {
     this.setState({ message: messages.reverse() });
   }
 
-  ClickFriend = name => {
-    this.props.history.push(`/chat/${name}`);
+  ClickFriend = e => {
+    console.log(e);
+    //this.props.history.push(`/chat/${e}`);
   };
 
   SendMessage = e => {
@@ -69,28 +69,21 @@ class Chat extends React.Component {
 
   render() {
     return (
-      <ChatDiv>
-        <Sidepanel
-          username={this.stateusername}
-          onClickFriend={this.ClickFriend}
-        />
-        <ChatRoom
-          username={this.state.username}
-          handleSubmit={this.SendMessage}
-          messages={this.state.messages}
-        />
-      </ChatDiv>
+      <div className="container-fluid h-100">
+        <div className="row justify-content-center h-100">
+          <Sidepanel
+            username={this.stateusername}
+            onClickFriend={this.ClickFriend}
+          />
+          <ChatRoom
+            username={this.state.username}
+            handleSubmit={this.SendMessage}
+            messages={this.state.messages}
+          />
+        </div>
+      </div>
     );
   }
 }
-
-const ChatDiv = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
 
 export default Chat;

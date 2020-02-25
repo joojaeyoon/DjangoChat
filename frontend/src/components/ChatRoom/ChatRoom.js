@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import Message from "./Message";
 
@@ -10,113 +9,95 @@ const ChatRoom = props => {
   const Messages = messages.map(message => {
     return (
       <Message
-        key={message.id}
-        state={message.author === username ? "sent" : "replies"}
-        img={
-          "https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg"
-        }
-        text={message.content}
+        state={message.author === username ? true : false}
+        message={message}
       />
     );
   });
 
   return (
-    <RoomDiv>
-      <div className="infopanel">ID Panel</div>
-      <div className="Messages">
-        <ul>{Messages}</ul>
+    <div className="col-md-8 col-xl-6 chat">
+      <div className="card">
+        <div className="card-header msg_head">
+          <div className="d-flex bd-highlight">
+            <div className="img_cont">
+              <img
+                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                className="rounded-circle user_img"
+              />
+              <span className="online_icon"></span>
+            </div>
+            <div className="user_info">
+              <span>Chat with Khalid</span>
+              <p>1767 Messages</p>
+            </div>
+            <div className="video_cam">
+              <span>
+                <i className="fas fa-video"></i>
+              </span>
+              <span>
+                <i className="fas fa-phone"></i>
+              </span>
+            </div>
+          </div>
+          <span id="action_menu_btn">
+            <i className="fas fa-ellipsis-v"></i>
+          </span>
+          <div className="action_menu">
+            <ul>
+              <li>
+                <i className="fas fa-user-circle"></i> View profile
+              </li>
+              <li>
+                <i className="fas fa-users"></i> Add to close friends
+              </li>
+              <li>
+                <i className="fas fa-plus"></i> Add to group
+              </li>
+              <li>
+                <i className="fas fa-ban"></i> Block
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="card-body msg_card_body">
+          <div className="d-flex justify-content-start mb-4">
+            <div className="img_cont_msg">
+              <img
+                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                className="rounded-circle user_img_msg"
+              />
+            </div>
+            <div className="msg_cotainer">
+              Hi, how are you samim?
+              <span className="msg_time">8:40 AM, Today</span>
+            </div>
+          </div>
+          {Messages}
+        </div>
+        <form className="card-footer" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <div className="input-group-append">
+              <span className="input-group-text attach_btn">
+                <i className="fas fa-paperclip"></i>
+              </span>
+            </div>
+            <input
+              name="text"
+              className="form-control type_msg"
+              placeholder="Type your message..."
+              autoComplete="off"
+            ></input>
+            <div className="input-group-append">
+              <button className="input-group-text send_btn">
+                <i className="fas fa-location-arrow"></i>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div className="MessageForm">
-        <ChatForm onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="text"
-            autoComplete="off"
-            placeholder="write text"
-          />
-          <input type="submit" value="Send" />
-        </ChatForm>
-      </div>
-    </RoomDiv>
+    </div>
   );
 };
-
-const RoomDiv = styled.div`
-  background-color: rgb(238, 238, 238);
-  width: 80%;
-  color: black;
-  font-size: 18px;
-
-  > .infopanel {
-    top: 0;
-    background-color: white;
-    width: 100%;
-    height: 10%;
-    border-bottom: rgb(229, 229, 229) solid;
-  }
-
-  > .Messages {
-    height: 90%;
-    overflow-y: scroll;
-
-    > ul {
-      > .sent {
-        text-align: right;
-        margin-right: 30px;
-        flex-direction: row-reverse;
-      }
-
-      > .replies {
-        text-align: left;
-        flex-direction: row;
-        > div {
-          background-color: rgb(67, 97, 122);
-          color: white;
-        }
-      }
-
-      > li {
-        list-style: none;
-        display: flex;
-
-        > * {
-          margin: 10px;
-        }
-
-        > div {
-          background-color: white;
-          border-radius: 10px;
-          text-align: left;
-          padding: 15px;
-          color: rgb(67, 97, 122);
-        }
-      }
-    }
-  }
-
-  > .MessageForm {
-    background-color: white;
-    position: absolute;
-    bottom: 0;
-    width: 80%;
-    height: 8%;
-  }
-`;
-
-const ChatForm = styled.form`
-  bottom: 0;
-  > input[type="text"] {
-    width: 90%;
-    height: 40px;
-  }
-
-  > input[type="submit"] {
-    width: 8%;
-    height: 45px;
-    border: none;
-    background-color: #2ecc71;
-    border-radius: 5px;
-  }
-`;
 
 export default ChatRoom;

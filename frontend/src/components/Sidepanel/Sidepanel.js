@@ -1,91 +1,63 @@
 import React from "react";
-import styled from "styled-components";
 
 const Sidepanel = props => {
   const { username, onClickFriend } = props;
   return (
-    <SidePanelDiv>
-      <div className="profile">
-        <img
-          src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg"
-          alt=""
-          style={{ width: "30px", height: "30px", borderRadius: "10px" }}
-        />
-        <span>{username}</span>
-      </div>
-      <div className="search">
-        IMG <span>Search</span>
-      </div>
-      <div className="friends">
-        <div
-          onClick={e => {
-            onClickFriend(e.target.textContent);
-          }}
-        >
-          <img
-            src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg"
-            alt=""
-            style={{ width: "30px", height: "30px", borderRadius: "10px" }}
-          />
-          <span>jaeyoon</span>
+    <div className="col-md-4 col-xl-3 chat">
+      <div className="card mb-sm-3 mb-md-0 contacts_card">
+        <div className="card-header">
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Search..."
+              name=""
+              className="form-control search"
+            />
+            <div className="input-group-prepend">
+              <span className="input-group-text search_btn">
+                <i className="fas fa-search"></i>
+              </span>
+            </div>
+          </div>
         </div>
-        <div
-          onClick={e => {
-            onClickFriend(e.target.textContent);
-          }}
-        >
-          <img
-            src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg"
-            alt=""
-            style={{ width: "30px", height: "30px", borderRadius: "10px" }}
-          />
-          <span>matt</span>
+        <div className="card-body contacts_body">
+          <ui className="contacts">
+            <li className="active">
+              <div className="d-flex bd-highlight">
+                <div className="img_cont">
+                  <img
+                    src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                    className="rounded-circle user_img"
+                  />
+                  <span className="online_icon"></span>
+                </div>
+                <div className="user_info">
+                  <span name="name">Khalid</span>
+                  <p>Kalid is online</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="d-flex bd-highlight">
+                <div className="img_cont">
+                  <img
+                    src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg"
+                    className="rounded-circle user_img"
+                  />
+                  <span className="online_icon offline"></span>
+                </div>
+                <div className="user_info">
+                  <span>Taherah Big</span>
+                  <p>Taherah left 7 mins ago</p>
+                </div>
+              </div>
+            </li>
+          </ui>
         </div>
+        <div className="card-footer"></div>
       </div>
-    </SidePanelDiv>
+    </div>
   );
 };
-
-const SidePanelDiv = styled.div`
-  background-color: rgb(44, 62, 80);
-  width: 20%;
-  color: white;
-
-  > .profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 15%;
-    > * {
-      margin: 15px;
-    }
-  }
-
-  > .search {
-    background-color: rgb(50, 70, 90);
-    height: 50px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    > * {
-      margin-left: 30px;
-    }
-  }
-
-  > .friends {
-    height: 70%;
-    background-color: rgb(44, 62, 80);
-    > div {
-      display: flex;
-      cursor: pointer;
-      > * {
-        margin: 30px;
-      }
-      :hover {
-        background-color: rgb(50, 70, 90);
-      }
-    }
-  }
-`;
 
 export default Sidepanel;
