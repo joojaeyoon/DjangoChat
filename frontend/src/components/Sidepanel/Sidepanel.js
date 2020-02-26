@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Axios from "axios";
 
 const Sidepanel = props => {
-  const { username, onClickFriend, friends, selectedFriend } = props;
+  const { username, onClickFriend, friends, selectedFriend, avatar } = props;
 
   const FriendList = friends.map((friend, idx) => {
     return (
@@ -39,7 +38,11 @@ const Sidepanel = props => {
           <div className="img_cont">
             <label htmlFor="file-input">
               <img
-                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                src={
+                  avatar
+                    ? avatar
+                    : "https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                }
                 alt="avatar"
                 className="rounded-circle user_img"
               />
@@ -57,7 +60,7 @@ const Sidepanel = props => {
             <span name="name">{username}</span>
           </div>
         </ProfileDiv>
-        <div className="card-header">
+        {/* <div className="card-header">
           <div className="input-group">
             <input
               type="text"
@@ -71,7 +74,7 @@ const Sidepanel = props => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="card-body contacts_body">
           <ul className="contacts">{FriendList}</ul>
         </div>

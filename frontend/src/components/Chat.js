@@ -4,6 +4,7 @@ import Axios from "axios";
 
 import Sidepanel from "./Sidepanel/Sidepanel";
 import ChatRoom from "./ChatRoom/ChatRoom";
+import UserPanel from "./Sidepanel/UserPanel";
 
 import WebSocketInstance from "../websocket";
 
@@ -12,13 +13,15 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      friends: [],
+      friends: ["Public Chat"],
       selectedFriend: 0,
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
-      chatId: props.match.params.chatid,
+      chatId: "open",
       avatar: null
     };
+    if (this.state.token === null) props.history.push("/");
+
     if (this.state.chatId !== undefined) {
       this.waitForSocketConnection(() => {
         WebSocketInstance.addCallbacks(
@@ -41,7 +44,7 @@ class Chat extends React.Component {
     ).then(res => {
       console.log(res.data[0]);
       this.setState({
-        friends: res.data[0].friends,
+        friends: [...this.state.friends, ...res.data[0].friends],
         avatar: res.data[0].avatar
       });
     });
@@ -65,7 +68,7 @@ class Chat extends React.Component {
         WebSocketInstance.fetchMessages(this.state.username, this.state.chatId);
       });
 
-      WebSocketInstance.connect(this.state.chatid);
+      WebSocketInstance.connect(this.state.chatId);
     }
   }
 
@@ -93,7 +96,7 @@ class Chat extends React.Component {
 
   ClickFriend = order => {
     if (order === this.state.chatId) return;
-    this.props.history.push(`/chat/${order}`);
+
     this.setState({ selectedFriend: order, chatId: order });
   };
 
@@ -113,11 +116,13 @@ class Chat extends React.Component {
     return (
       <div className="container-fluid h-100">
         <div className="row justify-content-center h-100">
+          <UserPanel />
           <Sidepanel
             username={this.state.username}
             onClickFriend={this.ClickFriend}
             friends={this.state.friends}
             selectedFriend={this.state.selectedFriend}
+            avatar={this.state.avatar}
           />
           <ChatRoom
             username={this.state.username}
