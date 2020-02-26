@@ -33,5 +33,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class ProfileRetrieveSerializer(ProfileSerializer):
-    friends = serializers.StringRelatedField(many=True)
     user = serializers.StringRelatedField()

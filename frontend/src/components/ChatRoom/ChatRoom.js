@@ -29,7 +29,7 @@ const ChatRoom = props => {
           <div className="d-flex bd-highlight">
             <div className="img_cont">
               <img
-                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                src="/default_icon.png"
                 className="rounded-circle user_img"
                 alt="avatar"
               />
@@ -37,18 +37,9 @@ const ChatRoom = props => {
             </div>
             <div className="user_info">
               <span>Chat with {contact.username}</span>
-              <p>1767 Messages</p>
-            </div>
-            <div className="video_cam">
-              <span>
-                <i className="fas fa-video"></i>
-              </span>
-              <span>
-                <i className="fas fa-phone"></i>
-              </span>
             </div>
           </div>
-          <span id="action_menu_btn">
+          {/* <span id="action_menu_btn">
             <i className="fas fa-ellipsis-v"></i>
           </span>
           <div className="action_menu">
@@ -66,22 +57,9 @@ const ChatRoom = props => {
                 <i className="fas fa-ban"></i> Block
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <div ref={bodyRef} className="card-body msg_card_body">
-          <div className="d-flex justify-content-start mb-4">
-            <div className="img_cont_msg">
-              <img
-                src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                className="rounded-circle user_img_msg"
-                alt="avatar"
-              />
-            </div>
-            <div className="msg_cotainer">
-              Hi, how are you samim?
-              <span className="msg_time">8:40 AM, Today</span>
-            </div>
-          </div>
           {Messages}
         </div>
         <form className="card-footer" onSubmit={handleSubmit}>

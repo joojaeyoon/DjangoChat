@@ -13,7 +13,7 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      friends: [{ username: "Public Chat", chatId: 8 }],
+      friends: [{ username: "Public Chat", chatId: 0 }],
       selectedFriend: 0,
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
@@ -42,9 +42,17 @@ class Chat extends React.Component {
     Axios.get(
       `http://localhost:8000/api/profiles/?username=${this.state.username}`
     ).then(res => {
-      console.log(res.data[0]);
+      const friends = res.data[0].chats.map((chat, idx) => {
+        if (idx === 0) return { username: "Public Chat", chatId: chat.id };
+        const username = chat.participants.filter(
+          p => p !== this.state.username
+        )[0];
+
+        return { username: username, chatId: chat.id };
+      });
+
       this.setState({
-        friends: [...this.state.friends, ...res.data[0].friends],
+        friends: [...friends],
         avatar: res.data[0].avatar
       });
     });
@@ -104,14 +112,12 @@ class Chat extends React.Component {
     const { friends } = this.state;
 
     for (var i = 0; i < friends.length; i++) {
-      if (friends[i] === username) return;
+      if (friends[i].username === username) return;
     }
 
     Axios.post("http://localhost:8000/api/chat/", {
       participants: this.state.username + "," + username
     }).then(res => {
-      console.log(res.data);
-
       this.setState({
         friends: [...friends, { username: username, chatId: res.data.id }]
       });

@@ -16,7 +16,7 @@ const Sidepanel = props => {
         <div className="d-flex bd-highlight">
           <div className="img_cont">
             <img
-              src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+              src="/default_icon.png"
               className="rounded-circle user_img"
               alt="avatar"
             />
@@ -38,11 +38,7 @@ const Sidepanel = props => {
           <div className="img_cont">
             <label htmlFor="file-input">
               <img
-                src={
-                  avatar
-                    ? avatar
-                    : "https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                }
+                src={avatar ? avatar : "/default_icon.png"}
                 alt="avatar"
                 className="rounded-circle user_img"
               />

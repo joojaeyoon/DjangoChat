@@ -6,7 +6,7 @@ class Profile(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="profile")
     avatar = models.ImageField(blank=True, null=True)
-    friends = models.ManyToManyField('self', blank=True)
+    # friends = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.user.username
