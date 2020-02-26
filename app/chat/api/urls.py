@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import ProfileListAPIView, ChatCreateAPIView, ChatListAPIView, ProfileUpdateAPIView, UserListAPIView
 
+app_name = "api"
+
 urlpatterns = [
     path("profiles/", ProfileListAPIView.as_view(), name="profile-list"),
     path("profiles/<pk>",

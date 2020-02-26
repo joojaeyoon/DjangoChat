@@ -10,17 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username")
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = "__all__"
-
-
-class ProfileRetrieveSerializer(ProfileSerializer):
-    friends = serializers.StringRelatedField(many=True)
-    user = serializers.StringRelatedField()
-
-
 class ChatSerializer(serializers.ModelSerializer):
     participants = serializers.StringRelatedField(many=True)
 
@@ -33,3 +22,16 @@ class ChatCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         exclude = ("messages",)
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    chats = ChatSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = "__all__"
+
+
+class ProfileRetrieveSerializer(ProfileSerializer):
+    friends = serializers.StringRelatedField(many=True)
+    user = serializers.StringRelatedField()
