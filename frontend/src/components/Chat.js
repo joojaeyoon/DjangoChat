@@ -13,11 +13,11 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      friends: ["Public Chat"],
+      friends: [{ username: "Public Chat", chatId: 8 }],
       selectedFriend: 0,
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
-      chatId: "open",
+      chatId: "8",
       avatar: null
     };
     if (this.state.token === null) props.history.push("/");
@@ -94,10 +94,10 @@ class Chat extends React.Component {
     this.setState({ messages: messages.reverse() });
   }
 
-  ClickFriend = order => {
+  ClickFriend = (order, chatId) => {
     if (order === this.state.chatId) return;
 
-    this.setState({ selectedFriend: order, chatId: order });
+    this.setState({ selectedFriend: order, chatId: chatId });
   };
 
   AddFriend = username => {
@@ -107,12 +107,14 @@ class Chat extends React.Component {
       if (friends[i] === username) return;
     }
 
-    /*
-    Use Chat Create API and Active New user Chat
-    */
+    Axios.post("http://localhost:8000/api/chat/", {
+      participants: this.state.username + "," + username
+    }).then(res => {
+      console.log(res.data);
 
-    this.setState({
-      friends: [...friends, username]
+      this.setState({
+        friends: [...friends, { username: username, chatId: res.data.id }]
+      });
     });
   };
 

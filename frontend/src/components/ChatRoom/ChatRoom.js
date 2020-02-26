@@ -36,7 +36,7 @@ const ChatRoom = props => {
               <span className="online_icon"></span>
             </div>
             <div className="user_info">
-              <span>Chat with {contact}</span>
+              <span>Chat with {contact.username}</span>
               <p>1767 Messages</p>
             </div>
             <div className="video_cam">

@@ -1,6 +1,7 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
 from django.contrib.auth.models import User
 
 
@@ -60,3 +61,25 @@ class ChatCreateAPIView(generics.CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatCreateSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def create(self, request, *args, **kwargs):
+
+        participants = request.data["participants"].split(",")
+
+        p_id = []
+
+        for participant in participants:
+            p_id.append(Profile.objects.filter(
+                user__username=participant)[0].id)
+
+        data = request.data.copy()
+        data["participants"] = p_id
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(data)
+
+        data["id"] = Chat.objects.last().id
+
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)

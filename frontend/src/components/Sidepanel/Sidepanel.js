@@ -9,7 +9,7 @@ const Sidepanel = props => {
       <Li
         key={idx}
         onClick={() => {
-          onClickFriend(idx);
+          onClickFriend(idx, friend.chatId);
         }}
         className={idx === selectedFriend ? "active" : ""}
       >
@@ -23,8 +23,8 @@ const Sidepanel = props => {
             <span className="online_icon"></span>
           </div>
           <div className="user_info">
-            <span name="name">{friend}</span>
-            <p>{friend} is online</p>
+            <span name="name">{friend.username}</span>
+            <p>{friend.username} is online</p>
           </div>
         </div>
       </Li>
