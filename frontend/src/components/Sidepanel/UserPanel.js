@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Axios from "axios";
 
 const UserPanel = props => {
+  const { username, AddFriend } = props;
   const [users, setUsers] = useState([]);
   const inputRef = useRef(null);
 
@@ -17,12 +18,21 @@ const UserPanel = props => {
     );
   };
 
-  const Users = users.map(user => (
-    <Li key={user.id}>
-      {user.username}
-      <span>+</span>
-    </Li>
-  ));
+  const Users = users.map(user => {
+    if (user.username === username) return;
+    return (
+      <Li key={user.id}>
+        {user.username}
+        <span
+          onClick={() => {
+            AddFriend(user.username);
+          }}
+        >
+          +
+        </span>
+      </Li>
+    );
+  });
 
   return (
     <div className="col-md-4 col-xl-3 chat">

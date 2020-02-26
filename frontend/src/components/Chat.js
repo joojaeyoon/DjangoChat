@@ -100,6 +100,22 @@ class Chat extends React.Component {
     this.setState({ selectedFriend: order, chatId: order });
   };
 
+  AddFriend = username => {
+    const { friends } = this.state;
+
+    for (var i = 0; i < friends.length; i++) {
+      if (friends[i] === username) return;
+    }
+
+    /*
+    Use Chat Create API and Active New user Chat
+    */
+
+    this.setState({
+      friends: [...friends, username]
+    });
+  };
+
   SendMessage = e => {
     e.preventDefault();
     if (e.target.text.value === "") return;
@@ -116,7 +132,10 @@ class Chat extends React.Component {
     return (
       <div className="container-fluid h-100">
         <div className="row justify-content-center h-100">
-          <UserPanel />
+          <UserPanel
+            username={this.state.username}
+            AddFriend={this.AddFriend}
+          />
           <Sidepanel
             username={this.state.username}
             onClickFriend={this.ClickFriend}
