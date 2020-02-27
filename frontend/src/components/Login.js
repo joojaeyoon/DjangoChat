@@ -6,6 +6,9 @@ import styled, { keyframes } from "styled-components";
 const LoginContainer = () => {
   const [loginForm, setLoginForm] = useState(true);
   const history = useHistory();
+
+  if (localStorage.getItem("token") !== null) history.push("/chat");
+
   function onSubmit(e) {
     e.preventDefault();
 

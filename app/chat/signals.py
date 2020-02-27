@@ -9,6 +9,9 @@ from .models import Profile, Chat
 def create_profile(sender, instance, created, **kwargs):
 
     if created:
+        if Chat.objects.count() == 0:
+            Chat.objects.create()
+
         chat = Chat.objects.first()
         chat.participants.create(user=instance)
         # Profile.objects.create(user=instance)
