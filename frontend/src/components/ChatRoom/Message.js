@@ -36,7 +36,7 @@ const Message = ({ state, message }) => {
     <div key={message.id} className="d-flex justify-content-start mb-4">
       <div className="img_cont_msg">
         <img
-          src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+          src="/default_icon.png"
           className="rounded-circle user_img_msg"
           alt="avatar"
         />
