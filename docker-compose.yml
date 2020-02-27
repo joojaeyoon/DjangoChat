@@ -5,13 +5,13 @@ services:
     build:
       context: .
     ports:
-      - "8000:8000"
+      - "80:80"
     volumes:
       - ./app:/app
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
-             daphne app.asgi:application --port 8000 --bind 0.0.0.0"
+             daphne app.asgi:application --port 80 --bind 0.0.0.0"
     environment:
       - DB_HOST=db
       - DB_NAME=chat
