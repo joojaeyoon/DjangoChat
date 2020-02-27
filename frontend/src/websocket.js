@@ -20,7 +20,7 @@ class WebSocketService {
     this.socketRef = new WebSocket(path);
 
     this.socketRef.onopen = () => {
-      console.log("WebSocket open");
+      // console.log("WebSocket open");
     };
 
     this.socketRef.onmessage = e => {
@@ -28,7 +28,7 @@ class WebSocketService {
     };
 
     this.socketRef.onclose = () => {
-      console.log("websocket closed");
+      // console.log("websocket closed");
       // this.connect(chatId);
     };
   }

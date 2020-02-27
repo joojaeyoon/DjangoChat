@@ -16,7 +16,7 @@ const Sidepanel = props => {
         <div className="d-flex bd-highlight">
           <div className="img_cont">
             <img
-              src="/default_icon.png"
+              src="/static/default_icon.png"
               className="rounded-circle user_img"
               alt="avatar"
             />
@@ -38,18 +38,12 @@ const Sidepanel = props => {
           <div className="img_cont">
             <label htmlFor="file-input">
               <img
-                src={avatar ? avatar : "/default_icon.png"}
+                src={avatar ? avatar : "/static/default_icon.png"}
                 alt="avatar"
                 className="rounded-circle user_img"
               />
             </label>
-            <input
-              id="file-input"
-              type="file"
-              onChange={e => {
-                console.log(e.target.value);
-              }}
-            />
+            <input id="file-input" type="file" onChange={e => {}} />
             <span className="online_icon"></span>
           </div>
           <div className="user_info">

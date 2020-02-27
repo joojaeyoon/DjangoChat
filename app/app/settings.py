@@ -59,7 +59,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -154,12 +154,8 @@ CORS_ALLOW_CREDENTIAL = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = '/media'
-STATIC_ROOT = '/static'
 
 SITE_ID = 1
 
@@ -177,3 +173,12 @@ REST_FRAMEWORK = {
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "build"),
+    os.path.join(BASE_DIR, "build/static"),
+]
+
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "build")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

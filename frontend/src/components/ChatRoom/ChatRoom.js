@@ -29,7 +29,7 @@ const ChatRoom = props => {
           <div className="d-flex bd-highlight">
             <div className="img_cont">
               <img
-                src="/default_icon.png"
+                src="/static/default_icon.png"
                 className="rounded-circle user_img"
                 alt="avatar"
               />

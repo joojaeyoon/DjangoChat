@@ -7,3 +7,4 @@ django-allauth
 Pillow
 channels
 channels_redis
+whitenoise

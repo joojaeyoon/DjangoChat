@@ -3,11 +3,17 @@ import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import styled, { keyframes } from "styled-components";
 
+import csrftoken from "../csrf_token";
+
 const LoginContainer = () => {
   const [loginForm, setLoginForm] = useState(true);
   const history = useHistory();
 
   if (localStorage.getItem("token") !== null) history.push("/chat");
+
+  Axios.defaults.headers = {
+    "X-CSRFTOKEN": csrftoken
+  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -16,7 +22,7 @@ const LoginContainer = () => {
 
     if (loginForm) {
       const { username, password } = form;
-      Axios.post("http://localhost:8000/rest-auth/login/", {
+      Axios.post("/rest-auth/login/", {
         username: username.value,
         password: password.value
       })
@@ -32,7 +38,7 @@ const LoginContainer = () => {
     } else {
       const { username, email, password, password2 } = form;
 
-      Axios.post("http://localhost:8000/rest-auth/registration/", {
+      Axios.post("/rest-auth/registration/", {
         username: username.value,
         email: email.value,
         password1: password.value,

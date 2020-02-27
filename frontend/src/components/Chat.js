@@ -39,9 +39,7 @@ class Chat extends React.Component {
       Authorization: `Token ${this.state.token}`
     };
 
-    Axios.get(
-      `http://localhost:8000/api/profiles/?username=${this.state.username}`
-    ).then(res => {
+    Axios.get(`/api/profiles/?username=${this.state.username}`).then(res => {
       const friends = res.data[0].chats.map((chat, idx) => {
         if (idx === 0) return { username: "Public Chat", chatId: chat.id };
         const username = chat.participants.filter(
@@ -84,7 +82,7 @@ class Chat extends React.Component {
     const component = this;
     setTimeout(() => {
       if (WebSocketInstance.state() === 1) {
-        console.log("Connection is made");
+        // console.log("Connection is made");
         callback();
         return;
       } else {
@@ -115,7 +113,7 @@ class Chat extends React.Component {
       if (friends[i].username === username) return;
     }
 
-    Axios.post("http://localhost:8000/api/chat/", {
+    Axios.post("/api/chat/", {
       participants: this.state.username + "," + username
     }).then(res => {
       this.setState({
