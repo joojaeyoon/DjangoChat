@@ -13,11 +13,11 @@ class Chat extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      friends: [{ username: "Public Chat", chatId: 0 }],
+      friends: [{ username: "Public Chat", chatId: 1 }],
       selectedFriend: 0,
       username: localStorage.getItem("username"),
       token: localStorage.getItem("token"),
-      chatId: "8",
+      chatId: "1",
       avatar: null
     };
     if (this.state.token === null) props.history.push("/");
