@@ -11,11 +11,9 @@ const UserPanel = props => {
   const SearchUser = () => {
     const username = inputRef.current.value;
     if (username === "") return;
-    Axios.get(`http://localhost:8000/api/users/?search=${username}`).then(
-      res => {
-        setUsers(res.data);
-      }
-    );
+    Axios.get(`/api/users/?search=${username}`).then(res => {
+      setUsers(res.data);
+    });
   };
 
   const Users = users.map(user => {
