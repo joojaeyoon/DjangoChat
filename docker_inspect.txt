@@ -1,1 +1,0 @@
-docker inspect -f "{{ .NetworkSettings.Networks.chat_default.IPAddress }}" chat_redis_1

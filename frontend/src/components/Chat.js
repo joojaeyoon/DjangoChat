@@ -39,7 +39,7 @@ class Chat extends React.Component {
       Authorization: `Token ${this.state.token}`
     };
 
-    Axios.get(`/api/profiles/?username=${this.state.username}`).then(res => {
+    Axios.get(`/api/profiles/`).then(res => {
       const friends = res.data[0].chats.map((chat, idx) => {
         if (idx === 0) return { username: "Public Chat", chatId: chat.id };
         const username = chat.participants.filter(
