@@ -45,7 +45,11 @@ class ChatConsumer(WebsocketConsumer):
         chatId = data["chatId"]
 
         user = User.objects.filter(username=author)[0]
-        chat = Chat.objects.filter(id=chatId)[0]
+        chats = Chat.objects.filter(id=chatId)
+        if len(chats) == 0:
+            return
+
+        chat = chats[0]
         message = chat.messages.create(
             user=user,
             content=data['message'])

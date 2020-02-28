@@ -28,10 +28,12 @@ class Chat extends React.Component {
           this.setMessages.bind(this),
           this.addMessage.bind(this)
         );
-      });
 
-      WebSocketInstance.connect(this.state.chatId);
+        WebSocketInstance.fetchMessages(this.state.chatId);
+      });
     }
+
+    WebSocketInstance.connect(this.state.chatId);
 
     Axios.defaults.headers = {
       "Content-Type": "application/json",
@@ -56,6 +58,7 @@ class Chat extends React.Component {
           this.setMessages.bind(this),
           this.addMessage.bind(this)
         );
+        WebSocketInstance.fetchMessages(this.state.chatId);
       });
 
       WebSocketInstance.connect(this.state.chatId);
@@ -144,25 +147,23 @@ class Chat extends React.Component {
   };
 
   render() {
+    const { username, friends, selectedFriend, avatar, messages } = this.state;
     return (
       <div className="container-fluid h-100">
         <div className="row justify-content-center h-100">
-          <UserPanel
-            username={this.state.username}
-            AddFriend={this.AddFriend}
-          />
+          <UserPanel username={username} AddFriend={this.AddFriend} />
           <Sidepanel
-            username={this.state.username}
+            username={username}
             onClickFriend={this.ClickFriend}
-            friends={this.state.friends}
-            selectedFriend={this.state.selectedFriend}
-            avatar={this.state.avatar}
+            friends={friends}
+            selectedFriend={selectedFriend}
+            avatar={avatar}
           />
           <ChatRoom
-            username={this.state.username}
+            username={username}
             handleSubmit={this.SendMessage}
-            messages={this.state.messages}
-            contact={this.state.friends[this.state.selectedFriend]}
+            messages={messages}
+            contact={friends[selectedFriend]}
           />
         </div>
       </div>
