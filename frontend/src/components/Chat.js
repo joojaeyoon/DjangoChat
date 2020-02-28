@@ -28,7 +28,6 @@ class Chat extends React.Component {
           this.setMessages.bind(this),
           this.addMessage.bind(this)
         );
-        WebSocketInstance.fetchMessages(this.state.username, this.state.chatId);
       });
 
       WebSocketInstance.connect(this.state.chatId);
@@ -39,21 +38,7 @@ class Chat extends React.Component {
       Authorization: `Token ${this.state.token}`
     };
 
-    Axios.get(`/api/profiles/`).then(res => {
-      const friends = res.data[0].chats.map((chat, idx) => {
-        if (idx === 0) return { username: "Public Chat", chatId: chat.id };
-        const username = chat.participants.filter(
-          p => p !== this.state.username
-        )[0];
-
-        return { username: username, chatId: chat.id };
-      });
-
-      this.setState({
-        friends: [...friends],
-        avatar: res.data[0].avatar
-      });
-    });
+    this.getFriendlist();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -71,7 +56,6 @@ class Chat extends React.Component {
           this.setMessages.bind(this),
           this.addMessage.bind(this)
         );
-        WebSocketInstance.fetchMessages(this.state.username, this.state.chatId);
       });
 
       WebSocketInstance.connect(this.state.chatId);
@@ -86,10 +70,31 @@ class Chat extends React.Component {
         callback();
         return;
       } else {
-        console.log("wait for connection...");
+        // console.log("wait for connection...");
         component.waitForSocketConnection(callback);
       }
     }, 100);
+  }
+
+  getFriendlist() {
+    Axios.get(`/api/profiles/?username=${this.state.username}`).then(res => {
+      const friends = res.data[0].chats.map((chat, idx) => {
+        if (idx === 0) {
+          WebSocketInstance.fetchMessages(chat.id);
+          return { username: "Public Chat", chatId: chat.id };
+        }
+        const username = chat.participants.filter(
+          p => p !== this.state.username
+        )[0];
+
+        return { username: username, chatId: chat.id };
+      });
+
+      this.setState({
+        friends: [...friends],
+        avatar: res.data[0].avatar
+      });
+    });
   }
 
   addMessage(message) {
@@ -101,7 +106,7 @@ class Chat extends React.Component {
   }
 
   ClickFriend = (order, chatId) => {
-    if (order === this.state.chatId) return;
+    if (chatId === this.state.chatId) return;
 
     this.setState({ selectedFriend: order, chatId: chatId });
   };
@@ -116,6 +121,10 @@ class Chat extends React.Component {
     Axios.post("/api/chat/", {
       participants: this.state.username + "," + username
     }).then(res => {
+      WebSocketInstance.sendMessage({
+        command: "new_chat",
+        chatId: res.data.id
+      });
       this.setState({
         friends: [...friends, { username: username, chatId: res.data.id }]
       });

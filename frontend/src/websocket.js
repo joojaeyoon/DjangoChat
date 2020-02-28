@@ -46,6 +46,9 @@ class WebSocketService {
     if (command === "new_message") {
       this.callbacks[command](parsedData.message);
     }
+    if (command === "new_chat") {
+      this.callbacks[command]();
+    }
   }
 
   addCallbacks(messagesCallback, newMessageCallback) {
@@ -61,10 +64,9 @@ class WebSocketService {
     }
   }
 
-  fetchMessages(username, chatId) {
+  fetchMessages(chatId) {
     this.sendMessage({
       command: "fetch_messages",
-      username: username,
       chatId: chatId
     });
   }

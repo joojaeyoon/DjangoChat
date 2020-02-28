@@ -28,7 +28,10 @@ class ChatConsumer(WebsocketConsumer):
         )
 
     def fetch_messages(self, data):
-        chat = Chat.objects.filter(id=data["chatId"])[0]
+        chats = Chat.objects.filter(id=data["chatId"])
+        if len(chats) == 0:
+            return
+        chat = chats[0]
         messages = chat.last_10_messages()
         content = {
             "command": "messages",
@@ -67,7 +70,10 @@ class ChatConsumer(WebsocketConsumer):
             'timestamp': str(message.timestamp)
         }
 
-    commands = {"fetch_messages": fetch_messages, "new_message": new_message}
+    commands = {
+        "fetch_messages": fetch_messages,
+        "new_message": new_message,
+    }
 
     def receive(self, text_data):
         data = json.loads(text_data)
