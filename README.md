@@ -2,7 +2,7 @@
 
 Chat application using Django, React
 
-<a href="http://52.79.129.216/">DjangoChat Webapge</a>
+<a href="http://34.230.193.35/">DjangoChat Webapge</a>
 
 <div align="center">
 
