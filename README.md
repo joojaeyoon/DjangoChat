@@ -30,8 +30,8 @@ Chat application using Django, React
 #### Environment
 
 - Python3
-- Django / Django-REST-Framework
-- Docker / Docker-Compose / Django-Channels
+- Django / Django-REST-Framework / Django-Channels
+- Docker / Docker-Compose 
 - React
 - Redis
 - PostgresQL
